@@ -10,5 +10,5 @@ public class BuildingEscapeTarget : TargetRules
 		Type = TargetType.Game;
 
 		ExtraModuleNames.AddRange( new string[] { "BuildingEscape" } );
-	}
+    }
 }
