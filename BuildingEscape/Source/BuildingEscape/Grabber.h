@@ -27,5 +27,6 @@ public:
 
 private:
 	float reach = 100.f;
+	FString HitName;
 	
 };
