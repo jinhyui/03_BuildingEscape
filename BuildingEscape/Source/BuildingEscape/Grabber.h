@@ -3,10 +3,10 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Components/ActorComponent.h"
+#include "PhysicsEngine/PhysicsHandleComponent.h"
 #include "DrawDebughelpers.h"
+#include "Components/ActorComponent.h"
 #include "Grabber.generated.h"
-
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class BUILDINGESCAPE_API UGrabber : public UActorComponent
@@ -27,6 +27,5 @@ public:
 
 private:
 	float reach = 100.f;
-	FString HitName;
-	
+	UPhysicsHandleComponent* PhysicsHandle = nullptr;
 };
