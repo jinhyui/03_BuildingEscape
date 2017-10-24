@@ -4,7 +4,7 @@
 #include <Engine/World.h>
 #include "Gameframework/Actor.h"
 
-#define OUT
+//#define OUT
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -26,14 +26,29 @@ void UGrabber::BeginPlay()
 	PhysicsHandle = GetOwner()->FindComponentByClass<UPhysicsHandleComponent>();
 	if (PhysicsHandle)
 	{
-		// Physics handle found
+		/// Physics handle found
 	}
 	else
 	{
 		UE_LOG(LogTemp,Error,TEXT("%s missing physics handle component"),*GetOwner()->GetName())
 	}
+
+	/// Look for attached Input Component (only appears at run time)
+	InputComponent = GetOwner()->FindComponentByClass<UInputComponent>();
+	if (InputComponent)
+	{
+		/// Bind the input axis
+		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+	}
+	else
+	{
+		UE_LOG(LogTemp, Error, TEXT("%s missing Input component"), *GetOwner()->GetName())
+	}
 }
 
+void UGrabber::Grab() {
+	UE_LOG(LogTemp, Warning, TEXT("Grab pressed"))
+}
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
@@ -64,7 +79,6 @@ void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompone
 
 	/// Setup query parameters
 	FCollisionQueryParams TraceParameters (FName(TEXT("")), false, GetOwner());
-
 	/// Line-trace (AKA ray-cast) out to reach distance
 	FHitResult Hit;
 	GetWorld()->LineTraceSingleByObjectType(
