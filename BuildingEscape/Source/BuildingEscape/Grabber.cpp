@@ -4,7 +4,7 @@
 #include <Engine/World.h>
 #include "Gameframework/Actor.h"
 
-//#define OUT
+#define OUT
 
 // Sets default values for this component's properties
 UGrabber::UGrabber()
@@ -39,6 +39,7 @@ void UGrabber::BeginPlay()
 	{
 		/// Bind the input axis
 		InputComponent->BindAction("Grab", IE_Pressed, this, &UGrabber::Grab);
+		InputComponent->BindAction("Grab", IE_Released, this, &UGrabber::Release);
 	}
 	else
 	{
@@ -49,6 +50,11 @@ void UGrabber::BeginPlay()
 void UGrabber::Grab() {
 	UE_LOG(LogTemp, Warning, TEXT("Grab pressed"))
 }
+
+void UGrabber::Release() {
+	UE_LOG(LogTemp, Warning, TEXT("Grab released"))
+}
+
 // Called every frame
 void UGrabber::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
