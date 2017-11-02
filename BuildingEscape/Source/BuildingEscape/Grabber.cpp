@@ -120,8 +120,3 @@ FVector UGrabber::GetReachLineEnd()
 	);
 	return PlayerLocation + PlayerRotation.Vector() * Reach;
 } 
-
-
-
-
-
